@@ -1,0 +1,148 @@
+@(jobs:Seq[Job])
+@import helper._
+@import models._
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>部件管理</title>
+    <style type="text/css">
+div#request{
+background-color:#99bbbb;
+width:100%;
+height:6%;
+position: absolute;
+top:0%
+}
+div#list{
+background-color:#EEEEEE;
+width:100%;
+height:94%;
+position: absolute;
+top:6%
+}
+
+p1{
+  font-size:1em;
+  font-weight: normal;
+  font-variant: normal;
+  font-style:oblique;
+  position: absolute;
+}
+p2{
+  font-size:1em;
+  font-weight: normal;
+  font-variant: normal;
+  font-style:oblique;
+  position: absolute;
+  right:3%;
+}
+p3{
+  font-size:2em;
+  font-weight: normal;
+  font-variant: normal;
+  font-style:oblique;
+  position: absolute;
+  right:2%;
+}
+a{
+	font-size:1em;
+	font-weight: normal;
+  	font-variant: normal;
+	font-style:oblique;
+	left:5%;
+	top:10%;
+}
+
+#customers
+  {
+  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse:collapse;
+  position: absolute;
+  left: 2%;
+  top: 8%;
+  }
+
+#customers td, #customers th
+  {
+  font-size:1em;
+  }
+
+#customers th
+  {
+  font-size:1.1em;
+  text-align:center;
+  background-color:#A7C942;
+  color:#ffffff;
+  }
+
+#customers tr.alt td
+  {
+  color:#000000;
+  background-color:#EAF2D3;
+  }
+</style>
+</head>
+
+<body>
+<div id="request">
+    <p1>
+     <form method="POST" action="/listSelectJob">
+      组件类型:
+      <select name="table">
+          <option value="all" selected="selected">全部部件</option>
+	      <option value="input" >数据采集组件</option>
+	      <option value="tran">数据转换组件</option>
+	      <option value="output">数据存储组件</option>
+      </select>
+      <input type="submit" type="text" value="显示"/>
+    </form>
+    </p1>
+</div>
+
+
+<div id="list">
+    <p3 left=2%;>@form(action=routes.JobLibController.inputJobInfo()){
+        <input type="submit" value="注册新组件">
+        }
+    </p3>
+
+    <table id="customers" border="1" cellpadding="15">
+        <tr>
+            <th>ID</th>
+            <th>名称</th>
+            <th>路径</th>
+            <th>类型</th>
+            <th>部件信息</th>
+            <th>查看配置</th>
+            <th>删除</th>
+            <th>更新</th>
+        </tr>
+        @for(job <- jobs) {
+        <tr>
+            <td>@job.id</td>
+            <td>@job.jobname</td>
+            <td>@job.jobpath</td>
+            <td>@job.jobtype</td>
+            <td>@job.jobinfo</td>
+            <td>@form(action=routes.JobLibController.jobConfig(job.id)){
+                <input type="submit" value="查看">
+                }
+            </td>
+
+            <td>@form(action=routes.JobLibController.deleteJob(job.id)){
+                <input type="submit" value="删除">
+                }
+            </td>
+            <td>@form(action=routes.JobLibController.updateJobinfo(job.id,job.jobname,job.jobpath,job.jobtype,job.jobinfo)){
+                <input type="submit" value="更新">
+                }
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>
+</body>
+</html>

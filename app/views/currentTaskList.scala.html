@@ -1,0 +1,112 @@
+@(tasks:Seq[Task])
+@import helper._
+@import models._
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="refresh" content="10">
+    <title>任务管理</title>
+    <style type="text/css">
+div#list{
+background-color:#EEEEEE;
+width:100%;
+height:100%;
+position: absolute;
+}
+#customers
+  {
+  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse:collapse;
+  position: absolute;
+  left:3%;
+  top: 10%;
+  }
+
+#customers td, #customers th
+  {
+  text-align:center;
+  font-size:1em;
+  }
+
+#customers th
+  {
+  font-size:1.1em;
+  text-align:center;
+  background-color:#A7C942;
+  color:#ffffff;
+  }
+
+#customers tr.alt td
+  {
+  color:#000000;
+  background-color:#EAF2D3;
+  }
+
+
+p3{
+  font-size:2em;
+  font-weight: normal;
+  font-variant: normal;
+  font-style:oblique;
+  position: absolute;
+  right:2%;
+}
+
+</style>
+</head>
+
+<body>
+<div id="list">
+    <p3 left=2%;>@form(action=routes.MonitorController.listHistoryTask()){
+        <input type="submit" value="查看历史任务">
+        }
+    </p3>
+    <table id="customers" border="1" cellpadding="15">
+        <tr>
+            <th>ID</th>
+            <th>数据源</th>
+            <th>汇聚终点</th>
+            <th>类型</th>
+            <th>状态</th>
+            <th>开始</th>
+            <th>总量</th>
+            <th>速度(行/min)</th>
+            <th>停止任务</th>
+        </tr>
+        @for(task <- tasks) {
+        <tr>
+            <td>@task.id</td>
+            <td >@Source.getNamebyID(task.sourceid)(0).name</td>
+            <td >@for(one<-task.target.split(";")){
+                 @one<br />
+                }
+            </td>
+            @if(task.tasktype==0){
+               <td >全量迁移</td>
+            }
+            @if(task.tasktype==1){
+               <td >增量同步</td>
+            }
+            @if(task.state==0){
+            <td >已完成</td>
+            }
+            @if(task.state==1){
+            <td >进行中</td>
+            }
+            <td >@task.time_start</td>
+            <td >@TaskDetail.getAmountByID(task.id)</td>
+            <td >@TaskDetail.getSpeedByID(task.id)</td>
+            <td >
+                @form(action=routes.SourceLibController.stopTask(task.id)){
+                <input type="submit" value="停止">
+                }
+            </td>
+
+        </tr>
+        }
+    </table>
+</div>
+</body>
+</html>

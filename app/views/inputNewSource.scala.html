@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>添加部件</title></head>
+<style type="text/css">
+    div#list{
+    background-color:#EEEEEE;
+    position: absolute;
+    left:35%;
+    }
+    </style>
+<body>
+<div id="list" >
+    <form  method="POST" action="/doaddSource">
+        <p>输入新数据源ID：<input name="id" type="int" placeholder="id" /></p>
+        <p>输入新数据源名称：<input name="jobname" type="String" placeholder="jobname"/></p>
+        <p>输入新数据源类型：<input name="jobpath" type="String" placeholder="jobpath" /></p>
+        <button type="submit">添加</button>
+    </form>
+    <p>选择上传的新的配置文件</p>
+    @helper.form(action = routes.SourceLibController.uploadConfig, 'enctype -> "multipart/form-data") {
+    <input type="file" name="oneconfig">
+    <p>
+        <button type="submit">上传</button>
+    </p>
+    }
+</div>
+
+</body>
+</html>

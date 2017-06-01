@@ -1,0 +1,111 @@
+@(sources:Seq[Source])
+@import helper._
+@import models._
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>数据源管理</title>
+    <style type="text/css">
+div#list{
+background-color:#EEEEEE;
+width:100%;
+height:100%;
+position: absolute;
+}
+#customers
+  {
+  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse:collapse;
+  position: absolute;
+  left: 10%;
+  top: 8%;
+  }
+
+#customers td, #customers th
+  {
+  text-align:center;
+  font-size:1em;
+  }
+
+#customers th
+  {
+  font-size:1.1em;
+  text-align:center;
+  background-color:#A7C942;
+  color:#ffffff;
+  }
+
+#customers tr.alt td
+  {
+  color:#000000;
+  background-color:#EAF2D3;
+  }
+
+
+p3{
+  font-size:2em;
+  font-weight: normal;
+  font-variant: normal;
+  font-style:oblique;
+  position: absolute;
+  right:2%;
+}
+
+</style>
+</head>
+
+<body>
+<div id="list">
+    <p3 left=2%;>@form(action=routes.SourceLibController.inputNewSourceInfo()){
+        <input type="submit" value="添加数据源">
+        }
+    </p3>
+    <table id="customers" border="1" cellpadding="15" >
+        <tr>
+            <th>ID</th>
+            <th>数据源名称</th>
+            <th>数据源类型</th>
+            <th>删除</th>
+            <th>更新</th>
+            <th>全量迁移</th>
+            <th>增量同步</th>
+            <th>汇聚记录</th>
+        </tr>
+        @for(source <- sources) {
+        <tr>
+            <td>@source.id</td>
+            <td width="150">@source.name</td>
+            <td width="200">@source.sourcetype</td>
+            <td >
+                @form(action=routes.SourceLibController.deleteSource(source.id)){
+                <input type="submit" value="删除">
+                }
+            </td>
+            <td >
+                @form(action=routes.SourceLibController.updateSourceinfo(source.id,source.name,source.sourcetype)){
+                <input type="submit" value="更新">
+                }
+            </td>
+            <td >
+                @form(action=routes.SourceLibController.startFull(source.id)){
+                <input type="submit"  value="启动">
+                }
+            </td>
+            <td>
+                @form(action=routes.SourceLibController.startIncrease(source.id)){
+                <input type="submit"  value="启动" >
+                }
+            </td>
+            <td >
+                @form(action=routes.SourceLibController.lookupHistory(source.id)){
+                <input type="submit"  value="查看" >
+                }
+            </td>
+        </tr>
+        }
+    </table>
+</div>
+</body>
+</html></html>

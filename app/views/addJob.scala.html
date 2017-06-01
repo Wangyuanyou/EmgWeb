@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head><title>添加部件</title></head>
+<style type="text/css">
+    div#list{
+    background-color:#EEEEEE;
+    position: absolute;
+    left:35%;
+    }
+    </style>
+<body>
+<div id="list" >
+<form  method="POST" action="/doaddJob">
+    <p>输入组件的ID：<input name="id" type="int" placeholder="id" /></p>
+    <p>输入组件的名称：<input name="jobname" type="String" placeholder="jobname"/></p>
+    <p>输入组件的路径：<input name="jobpath" type="String" placeholder="jobpath" /></p>
+    <p>输入组件的类型：<input name="jobtype" type="String" placeholder="jobtype" /></p>
+    <p>输入组件的信息：<input name="jobinfo" type="String" placeholder="jobinfo" /></p>
+    <button type="submit">添加</button>
+</form>
+<p>选择上传的部件Jar包</p>
+@helper.form(action = routes.JobLibController.uploadJob, 'enctype -> "multipart/form-data") {
+    <input type="file" name="oneJob">
+    <p>
+        <button type="submit">上传</button>
+    </p>
+}
+</div>
+
+</body>
+</html>

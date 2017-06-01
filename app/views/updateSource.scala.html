@@ -1,0 +1,30 @@
+@(id:Int,name:String,sourcetype:String)
+
+<!DOCTYPE html>
+<html lang="en">
+<head><title>更新部件信息</title>
+    <style type="text/css">
+    div#list{
+    background-color:#EEEEEE;
+    position: absolute;
+    }
+    </style>
+</head>
+<body>
+<div id="list">
+    <form method="POST" action="/doupdatesource">
+        <p><input name="id" type="int" placeholder="id" />(原值：@id)<p>
+        <p><input name="jobname" type="String" placeholder="jobname" />(原值：@name)<p>
+        <p><input name="jobpath" type="String" placeholder="jobpath" />(原值：@sourcetype)<p>
+        <p><button type="submit">更新</button><p>
+    </form>
+    <p>选择上传的配置文件</p>
+    @helper.form(action = routes.SourceLibController.uploadConfig, 'enctype -> "multipart/form-data") {
+    <input type="file" name="oneconfig">
+    <p>
+        <button type="submit">上传</button>
+    </p>
+    }
+</div >
+</body>
+</html>

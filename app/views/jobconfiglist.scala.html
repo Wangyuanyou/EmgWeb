@@ -1,0 +1,67 @@
+@(configs:Seq[JobConfig])
+@import helper._
+@import models._
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>部件配置查看</title>
+    <style type="text/css">
+div#list{
+background-color:#EEEEEE;
+width:100%;
+height:100%;
+position: absolute;
+}
+#customers
+  {
+  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse:collapse;
+  position: absolute;
+  left: 25%;
+  top: 3%;
+  }
+
+#customers td, #customers th
+  {
+  font-size:1em;
+  }
+
+#customers th
+  {
+  font-size:1.1em;
+  text-align:center;
+  background-color:#A7C942;
+  color:#ffffff;
+  }
+
+#customers tr.alt td
+  {
+  color:#000000;
+  background-color:#EAF2D3;
+  }
+</style>
+</head>
+
+<body>
+<div id="list">
+    <table id="customers" border="1" cellpadding="15">
+        <tr>
+            <th>配置项名称</th>
+            <th>配置项意义</th>
+            <th>isNUll</th>
+            <th>举例</th>
+        </tr>
+        @for(config <- configs) {
+        <tr>
+            <td>@config.key</td>
+            <td>@config.mean</td>
+            <td>@config.ismust</td>
+            <td>@config.eg</td>
+        </tr>
+        }
+    </table>
+</div>
+</body>
+</html>

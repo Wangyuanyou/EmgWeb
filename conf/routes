@@ -1,0 +1,61 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+# 测试的路由
+GET     /login                      controllers.HomeController.login
+
+POST    /doLogin                    controllers.HomeController.doLogin
+GET     /jobs                       controllers.HomeController.showJobs
+
+# jobmanage的路由
+GET     /show                       controllers.JobLibController.listJob
+GET     /inputjobinfo               controllers.JobLibController.inputJobInfo
+POST    /doaddJob                   controllers.JobLibController.addJob
+POST    /deleteJob/:id/delete       controllers.JobLibController.deleteJob(id:Int)
+GET     /updatejob/:id,:name,:path,:jobtype,:info         controllers.JobLibController.updateJobinfo(id:Int,name:String,path:String,jobtype:String,info:String)
+POST    /doupdatejob                controllers.JobLibController.updateOneJob
+POST    /                           controllers.JobLibController.uploadJob
+GET     /index                      controllers.HomeController.index
+GET     /main                       controllers.HomeController.main
+GET     /jobManage                  controllers.JobLibController.jobManage
+GET     /test                       controllers.HomeController.test
+POST    /listSelectJob              controllers.JobLibController.listSelectJob
+POST    /jobConfig/:id              controllers.JobLibController.jobConfig(id:Int)
+
+#HDFS 访问
+GET     /test                       controllers.HomeController.test
+
+
+#sourcemanage
+GET    /sourceManage                controllers.SourceLibController.listSource
+POST   /deletesource/:id/delete     controllers.SourceLibController.deleteSource(id:Int)
+GET    /updatesource/:id,:name,:sourcetype   controllers.SourceLibController.updateSourceinfo(id:Int,name:String,sourcetype:String)
+POST   /uploadconfig                controllers.SourceLibController.uploadConfig
+POST   /doupdatesource              controllers.SourceLibController.updateOneSource
+POST   /startFull                   controllers.SourceLibController.startFull(id:Int)
+POST   /startIncrease               controllers.SourceLibController.startIncrease(id:Int)
+POST   /lookupHistory               controllers.SourceLibController.lookupHistory(id:Int)
+GET    /inputNewSourceInfo          controllers.SourceLibController.inputNewSourceInfo
+POST    /doaddSource                controllers.SourceLibController.addSource
+
+
+#test
+GET    /testselect                  controllers.HomeController.testselect
+POST   /listSelect                  controllers.HomeController.listSelect
+
+#taskmange
+GET    /listCurrentTask             controllers.MonitorController.listCurrentTask
+GET    /listHistoryTask             controllers.MonitorController.listHistoryTask
+POST   /stoptask                    controllers.SourceLibController.stopTask(id:Int)
+
+#datamange
+GET   /dataManage                   controllers.DataManageController.dataManage
+GET   /lookHDFS                     controllers.DataManageController.lookHDFS
+GET   /dataManageIndex              controllers.DataManageController.dataManageIndex
+GET   /lookHive                     controllers.DataManageController.lookHive
+
+
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+
+

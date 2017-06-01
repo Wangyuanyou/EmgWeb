@@ -1,0 +1,32 @@
+@(id:Int,name:String,path:String,jobtype:String,info:String)
+
+<!DOCTYPE html>
+<html lang="en">
+<head><title>更新部件信息</title>
+    <style type="text/css">
+    div#list{
+    background-color:#EEEEEE;
+    position: absolute;
+    }
+    </style>
+</head>
+<body>
+<div id="list">
+<form method="POST" action="/doupdatejob">
+    <p><input name="id" type="int" placeholder="id" />(原值：@id)<p>
+    <p><input name="jobname" type="String" placeholder="jobname" />(原值：@name)<p>
+    <p><input name="jobpath" type="String" placeholder="jobpath" />(原值：@path)<p>
+    <p><input name="jobtype" type="String" placeholder="jobtype" />(原值：@jobtype)<p>
+    <p><input name="jobinfo" type="String" placeholder="jobinfo" />(原值：@info)<p>
+    <p><button type="submit">更新</button><p>
+</form>
+<p>选择上传的部件Jar包</p>
+@helper.form(action = routes.JobLibController.uploadJob, 'enctype -> "multipart/form-data") {
+<input type="file" name="oneJob">
+<p>
+    <button type="submit">上传</button>
+</p>
+}
+</div >
+</body>
+</html>

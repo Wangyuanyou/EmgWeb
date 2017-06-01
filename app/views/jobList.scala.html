@@ -1,0 +1,46 @@
+@(title: String, content: String,jobs:Seq[Job])
+@import helper._
+@import models._
+
+<!DOCTYPE html>
+<html>
+<header>
+    <title>@title</title>
+</header>
+
+<body>
+<p align="center">@(content)</p>
+
+
+<table align="center" border="1">
+    <tr>
+        <th>ID</th>
+        <th>部件名称</th>
+        <th>部件路径</th>
+        <th>部件类型</th>
+        <th>部件信息</th>
+        <th>删除</th>
+        <th>更新</th>
+    </tr>
+    @for(job <- jobs) {
+    <tr>
+        <td>@job.id</td>
+        <td>@job.jobname</td>
+        <td>@job.jobpath</td>
+        <td>@job.jobtype</td>
+        <td>@job.jobinfo</td>
+        <td>@form(action=routes.JobLibController.deleteJob(job.id)){
+            <input type="submit" value="删除">
+            }
+        </td>
+        <td>@form(action=routes.JobLibController.updateJobinfo(job.id,job.jobname,job.jobpath,job.jobtype,job.jobinfo)){
+            <input type="submit" value="更改">
+            }
+        </td>
+
+    </tr>
+    }
+</table>
+
+</body>
+</html>
